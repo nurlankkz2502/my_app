@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:my_app/generated/l10n.dart';
 
+// import 'main.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -18,13 +21,49 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('${S.of(context).language}:'),
+              DropdownButton<String>(
+                value: Intl.getCurrentLocale(),
+                items: [
+                  DropdownMenuItem(
+                    value: 'en',
+                    child: Text(
+                      S.of(context).english,
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: 'ru_RU',
+                    child: Text(
+                      S.of(context).russian,
+                    ),
+                  ),
+                ],
+                onChanged: (value) async {
+                  if (value == 'ru_RU') {
+                    await S.load(
+                      const Locale('ru', 'RU'),
+                    );
+                    setState(() {});
+                  } else if (value == 'en') {
+                    await S.load(
+                      const Locale('en'),
+                    );
+                    setState(() {});
+                  }
+                },
+              ),
+            ],
+          ),
           Expanded(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text(
-                    'Значение счетчика:',
+                  Text(
+                    '${S.of(context).counterValue}:'
                   ),
                   Text(
                     '$_counter',

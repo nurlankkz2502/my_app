@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'home_screen.dart';
+import 'package:my_app/generated/l10n.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Авторизация'),
+        title: Text(S.of(context).auth),
       ),
       body: Column(
         children: [
@@ -32,21 +32,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      const Text(
-                        'Введите логин и пароль',
+                      Text(
+                        S.of(context).inputLoginAndPassword,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       TextFormField(
-                        decoration: const InputDecoration(
-                          label: Text('Логин'),
+                        decoration: InputDecoration(
+                          label: Text(S.of(context).login),
                         ),
                         maxLength: 8,
                         validator: (value) {
-                          if (value == null) return 'Проверьте логин';
+                          if (value == null) return S.of(context).inputErrorCheckLogin;
                           if (value.length < 3) {
-                            return 'Логин должен содержать не менее 3 символов';
+                            return S.of(context).inputErrorLoginIsShort;
                           }
                           return null;
                         },
@@ -55,15 +55,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       TextFormField(
-                        decoration: const InputDecoration(
-                          label: Text('Пароль'),
+                        decoration: InputDecoration(
+                          label: Text(S.of(context).password),
                         ),
                         obscureText: true,
                         maxLength: 16,
                         validator: (value) {
-                          if (value == null) return 'Проверьте пароль';
+                          if (value == null) return S.of(context).inputErrorCheckPassword;
                           if (value.length < 8) {
-                            return 'Пароль должен содержать не менее 8 символов';
+                            return S.of(context).inputErrorPasswordIsShort;
                           }
                           return null;
                         },
@@ -84,13 +84,14 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    child: const Text('Вход'),
+                    child: Text(S.of(context).signIn),
                     onPressed: () {
-                      final isValidated = formKey.currentState?.validate() ?? false;
+                      final isValidated =
+                          formKey.currentState?.validate() ?? false;
                       if (isValidated) {
                         FocusScope.of(context).unfocus();
                         formKey.currentState?.save();
-                        if (login == 'qwerty' && password == '123456ab') {
+                        if (login == 'nurlan' && password == '123456ab') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -102,13 +103,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Попробуйте снова'),
+                              title: Text(S.of(context).tryAgain),
                               actions: [
                                 ElevatedButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: const Text('Закрыть'),
+                                  child: Text(S.of(context).close),
                                 )
                               ],
                             ),
