@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: <Widget>[
                       Text(
                         S.of(context).inputLoginAndPassword,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
